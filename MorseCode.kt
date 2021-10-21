@@ -118,7 +118,22 @@ class TextBox() : JEditorPane(){
 class Key( val value:String): JButton(value){
     init {
         this.font = Font("Cambria", Font.BOLD, 40)
-        this.foreground = Color.red
+        this.isFocusable = false
+
+
+    }
+
+    override fun paintComponent(g: Graphics?) {
+        super.paintComponent(g)
+        if (g != null) {
+            g.color = Color.darkGray
+            g.fillOval(5,5,90,90)
+            g.color = Color.lightGray
+            g.fillOval(10,10, 80, 80)
+            g.color = Color.black
+            g.font = Font("Cambria", Font.BOLD, 50)
+            g.drawChars(this.value.toCharArray(), 0, 1,35, 60)
+        }
     }
     override fun getPreferredSize(): Dimension {
         return Dimension(100,100)
@@ -150,13 +165,13 @@ class GameFrame(title:String) : JFrame(title), ActionListener{
 
         layout = GridBagLayout()
 
-        constraints.gridx = 0
+        constraints.gridx = 4
         constraints.gridy = 0
         constraints.fill = GridBagConstraints.BOTH
 
         this.add(textBox, constraints)
 
-        constraints.gridx = 1
+        constraints.gridx = 5
         constraints.gridy = 0
         constraints.fill = GridBagConstraints.BOTH
 
@@ -173,7 +188,7 @@ class GameFrame(title:String) : JFrame(title), ActionListener{
             }
         }
 
-        constraints.gridx = 0
+        constraints.gridx = 4
         constraints.gridy = 1
         constraints.anchor = GridBagConstraints.NORTHWEST
         this.add(light, constraints)
@@ -189,7 +204,7 @@ class GameFrame(title:String) : JFrame(title), ActionListener{
             if (e.source == encodeButton) {
                 val encoded = encode(textBox.text)
                 println(encoded)
-                //displayMessage(encoded)
+                displayMessage(encoded)
             }
             else if (keys.any{ it.any { it == e.source } }){
                 val letter = keys.filter { it.any{ it == e.source} }.first().find { it == e.source }?.value
@@ -222,10 +237,6 @@ class GameFrame(title:String) : JFrame(title), ActionListener{
     }
 }
 
-
-
-
-
 fun main(args: Array<String>) {
     println("test")
 
@@ -239,38 +250,5 @@ fun main(args: Array<String>) {
 
 
     val game = GameFrame("Morse Code")
-    Thread.sleep(1000)
-    game.displayMessage(inMorse)
-
+    //game.displayMessage(inMorse)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
