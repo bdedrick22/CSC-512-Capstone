@@ -165,38 +165,32 @@ class GameFrame(title:String) : JFrame(title), ActionListener{
 
         layout = GridBagLayout()
 
-        constraints.gridx = 4
-        constraints.gridy = 0
-        constraints.fill = GridBagConstraints.BOTH
-
-        this.add(textBox, constraints)
-
-        constraints.gridx = 5
-        constraints.gridy = 0
-        constraints.fill = GridBagConstraints.BOTH
+        addComponent(4,0,textBox)
 
         encodeButton.addActionListener(this)
-        this.add(encodeButton, constraints)
+        addComponent(5,0,encodeButton)
 
         for (row in 0 until keys.size) {
-            for (key in 0 until keys[row].size) {
+            for(key in 0 until keys[row].size) {
                 keys[row][key].addActionListener(this)
-                constraints.gridx = 0 + key
-                constraints.gridy = 2 + row
-                constraints.fill = GridBagConstraints.BOTH
-                this.add(keys[row][key], constraints)
+                addComponent(0+key,2+row, keys[row][key])
             }
         }
 
-        constraints.gridx = 4
-        constraints.gridy = 1
         constraints.anchor = GridBagConstraints.NORTHWEST
-        this.add(light, constraints)
-
+        addComponent(4,1,light)
+        
         this.pack()
         this.isVisible = true
         this.isResizable = false
         this.background = myColors.BACKGROUND
+    }
+
+    private fun addComponent(gridX: Int, gridY: Int, comp: JComponent){
+        constraints.gridx = gridX
+        constraints.gridy = gridY
+        constraints.fill = GridBagConstraints.BOTH
+        this.add(comp, constraints)
     }
 
     override fun actionPerformed(e: ActionEvent?) {
