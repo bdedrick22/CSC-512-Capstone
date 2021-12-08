@@ -502,8 +502,8 @@ class GameFrame() : JFrame("Morse Key!"), ActionListener, KeyListener{
                                  "9 " + DAH + DAH + DAH + DAH + DIT + "<br>" +
                                  DIT + " one unit <br>" +
                                  DAH + " three units <br>" +
-                                 "one unit letter parts <br>" +
-                                 "three units letters <br>" +
+                                 "one unit between letter parts <br>" +
+                                 "three units between letters <br>" +
                                  "seven units between words </html>"
         UIManager.put("ToolTip.background", MyColors.TEXT_BACKGROUND)
         UIManager.put("ToolTip.border", MyColors.LIGHT_OFF)
